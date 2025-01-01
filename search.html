@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search E-books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search E-books</h1>
+    <nav>
+        <a href="index.html">Home</a>
+    </nav>
+    <label for="search">Search:</label>
+    <input type="text" id="search" placeholder="Enter e-book title">
+    <button onclick="searchBooks()">Search</button>
+    <h2>Available E-books</h2>
+    <ul id="book-list"></ul>
+
+    <script>
+        // قائمة الكتب
+        const eBooks = [
+            "Introduction to Python",
+            "Learning JavaScript",
+            "Advanced Data Structures",
+            "Web Development with HTML and CSS",
+            "Mastering React",
+            "Data Science with Python",
+            "Algorithms and Problem Solving",
+            "Machine Learning Basics",
+            "Cloud Computing Essentials",
+            "Big Data Analytics",
+            "Cybersecurity Principles",
+            "Artificial Intelligence Overview",
+            "Database Design and Management",
+            "Mobile App Development",
+            "Programming with C++",
+            "Software Engineering Practices",
+            "Blockchain Technology Basics",
+            "Internet of Things (IoT)",
+            "Virtual Reality Development",
+            "Game Development with Unity"
+        ];
+
+        // عرض بعض الكتب بشكل افتراضي
+        function displayBooks(books) {
+            const bookList = document.getElementById('book-list');
+            bookList.innerHTML = ''; // تفريغ القائمة
+            books.forEach(book => {
+                bookList.innerHTML += `<li>${book}</li>`;
+            });
+        }
+
+        // البحث عن الكتب
+        function searchBooks() {
+            const query = document.getElementById('search').value.trim().toLowerCase();
+            if (!query) {
+                alert("Enter a search term!");
+                displayBooks(eBooks.slice(0, 5)); // إعادة عرض الكتب الافتراضية
+                return;
+            }
+
+            const filteredBooks = eBooks.filter(book => book.toLowerCase().includes(query));
+            if (filteredBooks.length > 0) {
+                displayBooks(filteredBooks);
+            } else {
+                document.getElementById('book-list').innerHTML = '<li>No books found.</li>';
+            }
+        }
+
+        // عرض أول 5 كتب عند تحميل الصفحة
+        window.onload = () => {
+            displayBooks(eBooks.slice(0, 5));
+        };
+    </script>
+</body>
+</html>

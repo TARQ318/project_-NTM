@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow E-books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        select, input, button {
+            padding: 8px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Borrow E-books</h1>
+    <nav>
+        <a href="index.html">Home</a>
+    </nav>
+    <div>
+        <div class="form-group">
+            <label for="borrower-name">Name:</label>
+            <input type="text" id="borrower-name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="ebook-title">Select Book:</label>
+            <select id="ebook-title">
+                <!-- Book list-->
+                <option value="Introduction to Python">Introduction to Python</option>
+                <option value="Learning JavaScript">Learning JavaScript</option>
+                <option value="Advanced Data Structures">Advanced Data Structures</option>
+                <option value="Web Development with HTML and CSS">Web Development with HTML and CSS</option>
+                <option value="Mastering React">Mastering React</option>
+            </select>
+        </div>
+        <button onclick="borrowBook()">Borrow</button>
+    </div>
+    <h2>Borrowed Books</h2>
+    <ul id="borrowed-list"></ul>
+
+    <script>
+        // An array to store borrowed data
+        const borrowedBooks = [];
+
+        // Book borrowing function
+        function borrowBook() {
+            const name = document.getElementById('borrower-name').value.trim();
+            const book = document.getElementById('ebook-title').value;
+            const borrowedList = document.getElementById('borrowed-list');
+
+            // Input verification
+            if (!name) {
+                alert("Please enter your name!");
+                return;
+            }
+
+            //Checking the repetition of metaphors for the same book
+            if (borrowedBooks.some(entry => entry.name === name && entry.book === book)) {
+                alert("You have already borrowed this book!");
+                return;
+            }
+
+            // Add the book to the borrowed book list
+            borrowedBooks.push({ name, book });
+
+            // Update the list on the page
+            borrowedList.innerHTML += `<li>${name} borrowed "${book}"</li>`;
+
+            // Field dump
+            document.getElementById('borrower-name').value = '';
+        }
+    </script>
+</body>
+</html>
