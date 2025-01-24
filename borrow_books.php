@@ -62,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
         <label for="book_title">Book Title:</label>
         <select id="book_title" name="book_title" required>
             <?php
-            $stmt = $pdo->query("SELECT * FROM books WHERE available = 1");
+            // تعديل الشرط ليقبل جميع الكتب غير الصفرية
+            $stmt = $pdo->query("SELECT * FROM books WHERE available != 0");
             while ($book = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option>" . htmlspecialchars($book['title']) . "</option>";
             }
