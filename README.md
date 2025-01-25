@@ -1,6 +1,6 @@
-# Dijital Library Management System
+# Digital Library Management System
 
-This project is a simple **Dijital Library Management System** implemented in PHP with a MySQL database. The system includes the following functionalities:
+This project is a simple **Digital Library Management System** implemented in PHP with a MySQL database. The system includes the following functionalities:
 
 1. **Register a student**
 2. **Search for books**
