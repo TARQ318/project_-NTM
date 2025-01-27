@@ -18,18 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
     $stmtBook->execute([$book_title]);
     $book = $stmtBook->fetch(PDO::FETCH_ASSOC);
 
-    if ($student && $book) {
+    if ($student && $book && $book['available_copies'] > 0) {
         // سجل الاستعارة في قاعدة البيانات
-        $stmtBorrow = $pdo->prepare("INSERT INTO borrows (student_id, book_id) VALUES (?, ?)");
+        $stmtBorrow = $pdo->prepare("INSERT INTO borrows (student_id, book_id, borrowed_at, due_date) VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 14 DAY))");
         $stmtBorrow->execute([$student['id'], $book['id']]);
 
-        // تحديث حالة الكتاب إلى غير متاح
-        $stmtUpdateBook = $pdo->prepare("UPDATE books SET available = 0 WHERE id = ?");
+        // تحديث حالة الكتاب بتقليل النسخ المتاحة
+        $stmtUpdateBook = $pdo->prepare("UPDATE books SET available_copies = available_copies - 1 WHERE id = ?");
         $stmtUpdateBook->execute([$book['id']]);
 
         $message = "Book borrowed successfully!";
     } else {
-        $message = "Student or book not found.";
+        $message = "Student or book not found, or no available copies.";
     }
 }
 ?>
@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
         <a href="search_books.php">Search Books</a>
         <a href="borrow_books.php">Borrow Books</a>
         <a href="dashboard.php">Dashboard</a>
+        <a href=" return_book.php">Return book</a>
     </nav>
 
     <h1>Borrow Books</h1>
@@ -62,8 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['borrow'])) {
         <label for="book_title">Book Title:</label>
         <select id="book_title" name="book_title" required>
             <?php
-            // تعديل الشرط ليقبل جميع الكتب غير الصفرية
-            $stmt = $pdo->query("SELECT * FROM books WHERE available != 0");
+            $stmt = $pdo->query("SELECT * FROM books WHERE available_copies > 0");
             while ($book = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option>" . htmlspecialchars($book['title']) . "</option>";
             }
