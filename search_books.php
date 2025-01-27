@@ -7,7 +7,7 @@ $searchResults = [];
 if (isset($_GET['search']) && isset($_GET['query'])) {
     $query = "%" . $_GET['query'] . "%";
     // تعديل الاستعلام لقبول كل القيم غير الصفرية
-    $stmt = $pdo->prepare("SELECT * FROM books WHERE title LIKE ? AND available != 0");
+    $stmt = $pdo->prepare("SELECT * FROM books WHERE title LIKE ? AND available_copies > 0");
     $stmt->execute([$query]);
     $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -28,6 +28,7 @@ if (isset($_GET['search']) && isset($_GET['query'])) {
         <a href="search_books.php">Search Books</a>
         <a href="borrow_books.php">Borrow Books</a>
         <a href="dashboard.php">Dashboard</a>
+        <a href=" return_book.php">Return book</a>
     </nav>
 
     <h1>Search E-books</h1>
