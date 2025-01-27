@@ -1,3 +1,4 @@
+
 # Digital Library Management System
 
 This project is a simple **Digital Library Management System** implemented in PHP with a MySQL database. The system includes the following functionalities:
@@ -5,7 +6,8 @@ This project is a simple **Digital Library Management System** implemented in PH
 1. **Register a student**
 2. **Search for books**
 3. **Borrow books**
-4. **Dashboard for borrowed books**
+4. **Return borrowed books**
+5. **Dashboard for borrowed books**
 
 ---
 
@@ -61,7 +63,30 @@ Handles the borrowing of books by students.
 
 ---
 
-### 4. **`dashboard.php`**
+### 4. **`return_book.php`**
+Enables users to return borrowed books.
+
+#### Features:
+- Dropdown menu populated with currently borrowed books that have not been returned.
+- Updates the `borrows` table to set the `returned_at` column with the current timestamp.
+- Increments the `available_copies` count in the `books` table.
+- Displays a success message after the return is processed.
+
+#### Code Highlights:
+- Joins `borrows` and `books` tables to fetch currently borrowed books.
+- Updates multiple tables using prepared statements to maintain data consistency.
+- Uses `htmlspecialchars()` to escape content and prevent XSS.
+
+#### Navigation Links:
+- **Register Student**
+- **Search Books**
+- **Borrow Books**
+- **Return Book**
+- **Dashboard**
+
+---
+
+### 5. **`dashboard.php`**
 Displays a dashboard with all borrowed books.
 
 #### Features:
@@ -86,13 +111,14 @@ Displays a dashboard with all borrowed books.
 2. **`books`**
    - `id` (Primary Key, Auto Increment)
    - `title` (VARCHAR)
-   - `available` (TINYINT)
+   - `available_copies` (INT)
 
 3. **`borrows`**
    - `id` (Primary Key, Auto Increment)
    - `student_id` (Foreign Key, References `students.id`)
    - `book_id` (Foreign Key, References `books.id`)
    - `borrowed_at` (TIMESTAMP)
+   - `returned_at` (TIMESTAMP, NULLABLE)
 
 ---
 
@@ -100,7 +126,11 @@ Displays a dashboard with all borrowed books.
 
 1. **Set Up the Database:**
    - Create a MySQL database.
-   - Import the provided SQL file (if available) or create the tables as per the structure above.
+   - Import the provided SQL file (`DLMS.sql`) included in the project directory to set up the database structure and initial data.
+
+     ```bash
+     mysql -u your_username -p your_database_name < DLMS.sql
+     ```
 
 2. **Configure Database Connection:**
    - Update the `database.php` file with your database credentials:
@@ -120,8 +150,10 @@ project-folder/
 |-- register_student.php
 |-- search_books.php
 |-- borrow_books.php
+|-- return_book.php
 |-- dashboard.php
 |-- database.php
+|-- DLMS.sql
 |-- DLMS.css
 ```
 
@@ -129,7 +161,6 @@ project-folder/
 
 ## Future Enhancements
 - Add user authentication for admins.
-- Implement return functionality for borrowed books.
 - Display overdue books and implement penalty calculation.
 - Enhance the UI with additional styling and JavaScript interactivity.
 
