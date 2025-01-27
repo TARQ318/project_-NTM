@@ -9,9 +9,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $email = $_POST['email'];
 
     if (!empty($name) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $stmt = $pdo->prepare("INSERT INTO students (name, email) VALUES (?, ?)");
-        $stmt->execute([$name, $email]);
-        $message = "Student registered successfully!";
+        // التحقق من وجود البريد الإلكتروني بالفعل في قاعدة البيانات
+        $stmt = $pdo->prepare("SELECT * FROM students WHERE email = ?");
+        $stmt->execute([$email]);
+        $existingStudent = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingStudent) {
+            // إذا كان البريد الإلكتروني موجودًا بالفعل
+            $message = "This email is already registered. Please use a different one.";
+        } else {
+            // إدخال الطالب في قاعدة البيانات
+            $stmt = $pdo->prepare("INSERT INTO students (name, email) VALUES (?, ?)");
+            $stmt->execute([$name, $email]);
+            $message = "Student registered successfully!";
+            
+            // إعادة التوجيه إلى صفحة البحث عن الكتب
+            header("Location: search_books.php");
+            exit; // تأكد من إنهاء التنفيذ بعد التوجيه
+        }
     } else {
         $message = "Invalid input. Please try again.";
     }
@@ -33,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         <a href="search_books.php">Search Books</a>
         <a href="borrow_books.php">Borrow Books</a>
         <a href="dashboard.php">Dashboard</a>
+        <a href="return_book.php">Return book</a>
     </nav>
 
     <h1>Register Student</h1>
