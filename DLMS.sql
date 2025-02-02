@@ -36,3 +36,7 @@ CREATE TABLE borrows (
     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );
+
+
+ALTER TABLE students ADD COLUMN password VARCHAR(255) NOT NULL;
+
