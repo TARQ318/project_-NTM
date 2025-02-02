@@ -1,0 +1,220 @@
+/* إعدادات الخطوط */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;  /* تغيير الخط إلى Roboto ليكون أكثر وضوحًا */
+    background-color: #f0f0f0;  /* خلفية بلون رمادي هادئ */
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: #333;  /* جعل النصوص باللون الرمادي الداكن */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* ظل خفيف للنصوص */
+}
+
+/* شريط التنقل */
+nav {
+    background-color: rgba(0, 123, 255, 0.8);
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    margin: 0 15px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #0056b3;
+}
+
+/* الحاويات والصفوف */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* تصميم نموذج الإدخال */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.9);  /* حاوية بيضاء شفافة قليلاً */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* الحقول والنماذج */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;  /* توسيع الحد الأقصى للنموذج ليكون أكثر احترافية */
+    margin: 0 auto;  /* لتوسيط النموذج في الصفحة */
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;  /* تحسين حجم الخط */
+    color: #555; /* تحسين اللون */
+}
+
+input, select, button {
+    padding: 12px 15px;  /* زيادة المسافة داخل الحقول */
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;  /* حجم الخط داخل الحقول يكون مقبولًا */
+    width: 100%;  /* لضمان أن المدخلات تأخذ العرض الكامل المتاح */
+    box-sizing: border-box;  /* للتأكد من أن الحشو لا يؤثر على الحجم الإجمالي */
+}
+
+input:focus, select:focus, button:focus {
+    outline: none;
+    border-color: #007BFF;  /* تغيير لون الحدود عند التركيز */
+}
+
+/* الأزرار */
+button {
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 15px;  /* تحسين المسافة داخل الأزرار */
+    border: none;  /* إزالة الحدود */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* رسائل التنبيه */
+.message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* الجدول */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #007BFF;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* القوائم */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.centered-text {
+    text-align: center;
+}
+
+/* تحسين التصميم على الأجهزة الصغيرة */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    nav a {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    form {
+        width: 100%;
+    }
+}
+
+/* صفحة الترحيب */
+.welcome-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.welcome-container h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+.welcome-container p {
+    font-size: 1.2em;
+    margin-top: 20px;
+    color: #555;
+}
+
+.cta {
+    margin-top: 30px;
+}
+
+.cta .btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+.cta .btn:hover {
+    background-color: #0056b3;
+}
