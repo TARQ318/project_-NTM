@@ -1,4 +1,4 @@
-<?php
+<?php 
 // تضمين الاتصال بقاعدة البيانات
 include 'database.php';
 
@@ -29,6 +29,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="DLMS.css">
 </head>
 <body>
+
     <!-- شريط التنقل -->
     <nav>
         <a href="index.php">Home</a>
@@ -39,13 +40,15 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         <a href="logout.php">Logout</a>
     </nav>
 
-    <div class="welcome-container">
+    <!-- الحاوية الرئيسية -->
+    <div class="container">
         <h1>Welcome to the Digital Library Management System</h1>
 
-        <p>Hello, <strong><?php echo htmlspecialchars($user['name']); ?></strong>! Welcome to your personal dashboard.</p>
-        
-        <p>Explore books, borrow them, and much more!</p>
-
+        <div class="welcome-container">
+            <p>Hello, <strong><?php echo htmlspecialchars($user['name']); ?></strong>! Welcome to your personal dashboard.</p>
+            <p>Explore books, borrow them, and much more!</p>
+        </div>
     </div>
+
 </body>
 </html>
