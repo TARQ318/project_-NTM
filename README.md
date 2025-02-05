@@ -1,170 +1,110 @@
+# Digital Library Management System (DLMS)
 
-# Digital Library Management System
+## Overview
+The Digital Library Management System (DLMS) is a web-based application that allows users to search, borrow, and return books. It provides an efficient way for students and librarians to manage library resources.
 
-This project is a simple **Digital Library Management System** implemented in PHP with a MySQL database. The system includes the following functionalities:
+## Features
+- User authentication (login/logout system)
+- Search for available books
+- Borrow and return books
+- Librarian dashboard for managing books
+- Track borrowed books with due dates
 
-1. **Register a student**
-2. **Search for books**
-3. **Borrow books**
-4. **Return borrowed books**
-5. **Dashboard for borrowed books**
+## Technologies Used
+- PHP (Backend)
+- MySQL (Database)
+- HTML, CSS (Frontend)
 
----
-
-## Project Files and Functionalities
-
-### 1. **`register_student.php`**
-Allows users to register new students into the system.
-
-#### Features:
-- Input fields for student name and email.
-- Validates the email format and ensures the name is not empty.
-- Inserts student data into the `students` table in the database.
-
-#### Code Highlights:
-- Data validation using `filter_var()` for email.
-- Prepared statements (`$pdo->prepare`) to prevent SQL injection.
-
-#### Navigation Links:
-- **Register Student**
-- **Search Books**
-- **Borrow Books**
-- **Dashboard**
-
----
-
-### 2. **`search_books.php`**
-Allows users to search for books available in the library.
-
-#### Features:
-- Search bar to input the book title.
-- Displays books that match the search query and are marked as available in the database.
-- Utilizes SQL `LIKE` and filters only `available` books.
-
-#### Code Highlights:
-- Uses `$_GET` to retrieve search queries.
-- Escapes HTML content with `htmlspecialchars()` to avoid XSS.
-
----
-
-### 3. **`borrow_books.php`**
-Handles the borrowing of books by students.
-
-#### Features:
-- Input fields for student email and book selection.
-- Validates the existence of the student and the availability of the book.
-- Inserts a record into the `borrows` table and marks the book as unavailable.
-- Displays a success or failure message.
-
-#### Code Highlights:
-- Dropdown menu dynamically populated with available books.
-- Updates the `books` table to set the `available` column to `0` when a book is borrowed.
-- Uses multiple prepared statements to ensure safe database operations.
-
----
-
-### 4. **`return_book.php`**
-Enables users to return borrowed books.
-
-#### Features:
-- Dropdown menu populated with currently borrowed books that have not been returned.
-- Updates the `borrows` table to set the `returned_at` column with the current timestamp.
-- Increments the `available_copies` count in the `books` table.
-- Displays a success message after the return is processed.
-
-#### Code Highlights:
-- Joins `borrows` and `books` tables to fetch currently borrowed books.
-- Updates multiple tables using prepared statements to maintain data consistency.
-- Uses `htmlspecialchars()` to escape content and prevent XSS.
-
-#### Navigation Links:
-- **Register Student**
-- **Search Books**
-- **Borrow Books**
-- **Return Book**
-- **Dashboard**
-
----
-
-### 5. **`dashboard.php`**
-Displays a dashboard with all borrowed books.
-
-#### Features:
-- Displays the student's name, email, borrowed book title, and borrow date.
-- Joins data from the `students`, `books`, and `borrows` tables.
-
-#### Code Highlights:
-- SQL `JOIN` queries to combine related data across multiple tables.
-- Dynamically renders data in an HTML table.
-
----
-
-## Database Structure
-
-### Tables:
-
-1. **`students`**
-   - `id` (Primary Key, Auto Increment)
-   - `name` (VARCHAR)
-   - `email` (VARCHAR)
-
-2. **`books`**
-   - `id` (Primary Key, Auto Increment)
-   - `title` (VARCHAR)
-   - `available_copies` (INT)
-
-3. **`borrows`**
-   - `id` (Primary Key, Auto Increment)
-   - `student_id` (Foreign Key, References `students.id`)
-   - `book_id` (Foreign Key, References `books.id`)
-   - `borrowed_at` (TIMESTAMP)
-   - `returned_at` (TIMESTAMP, NULLABLE)
-
----
-
-## How to Run the Project
-
-1. **Set Up the Database:**
-   - Create a MySQL database.
-   - Import the provided SQL file (`DLMS.sql`) included in the project directory to set up the database structure and initial data.
-
-     ```bash
-     mysql -u your_username -p your_database_name < DLMS.sql
-     ```
-
-2. **Configure Database Connection:**
-   - Update the `database.php` file with your database credentials:
-     ```php
-     $pdo = new PDO('mysql:host=localhost;dbname=your_database_name', 'username', 'password');
-     ```
-
-3. **Run on Localhost:**
-   - Place all project files in your server's root directory (e.g., `htdocs` for XAMPP).
-   - Access the files via your browser (e.g., `http://localhost/register_student.php`).
-
----
+## Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repo/DLMS.git
+   ```
+2. Import the database:
+   - Navigate to your MySQL interface (e.g., phpMyAdmin)
+   - Create a new database named `DLMS`
+   - Run the SQL script provided in `DLMS.sql`
+3. Configure database connection:
+   - Update `database.php` with your MySQL credentials
+4. Start the project:
+   - Run a local server (e.g., XAMPP, MAMP)
+   - Open `http://localhost/DLMS/` in your browser
 
 ## File Structure
 ```
-project-folder/
-|-- register_student.php
-|-- search_books.php
-|-- borrow_books.php
-|-- return_book.php
-|-- dashboard.php
-|-- database.php
-|-- DLMS.sql
-|-- DLMS.css
+DLMS/
+│-- index.php          # Home page
+│-- login.php          # User authentication
+│-- logout.php         # Logout functionality
+│-- register.php       # User registration
+│-- search.php         # Search for books
+│-- borrow.php         # Borrow books
+│-- return.php         # Return borrowed books
+│-- dashboard.php      # User dashboard
+│-- librarian-page.php      # Librarian dashboard
+│-- database.php       # Database connection
+│-- DLMS.css           # Stylesheet
+│-- DLMS.sql       # SQL script for database setup
+└── README.md          # Project documentation
 ```
 
----
+## Database Schema
+The system consists of the following tables:
 
-## Future Enhancements
-- Add user authentication for admins.
-- Display overdue books and implement penalty calculation.
-- Enhance the UI with additional styling and JavaScript interactivity.
+### `students`
+Stores student information.
+```
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
----
+### `books`
+Stores book details.
+```
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255),
+    published_year INT,
+    available_copies INT DEFAULT 1,
+    total_copies INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### `borrows`
+Tracks borrowed books.
+```
+CREATE TABLE borrows (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    book_id INT NOT NULL,
+    borrowed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    due_date DATE NOT NULL,
+    returned_at TIMESTAMP NULL,
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+```
+
+### `librarians`
+Stores librarian credentials.
+```
+CREATE TABLE librarians (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) DEFAULT 'librarian',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
 ## License
-This project is open-source and free to use for educational purposes.
+This project is open-source and available under the MIT License.
+
