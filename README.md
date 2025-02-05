@@ -4,7 +4,7 @@
 The Digital Library Management System (DLMS) is a web-based application that allows users to search, borrow, and return books. It provides an efficient way for students and librarians to manage library resources.
 
 ## Features
-- User authentication (login/logout system)
+- User and librarian authentication (login/logout system)
 - Search for available books
 - Borrow and return books
 - Librarian dashboard for managing books
@@ -33,19 +33,20 @@ The Digital Library Management System (DLMS) is a web-based application that all
 ## File Structure
 ```
 DLMS/
-│-- index.php          # Home page
-│-- login.php          # User authentication
-│-- logout.php         # Logout functionality
-│-- register.php       # User registration
-│-- search.php         # Search for books
-│-- borrow.php         # Borrow books
-│-- return.php         # Return borrowed books
-│-- dashboard.php      # User dashboard
-│-- librarian-page.php      # Librarian dashboard
-│-- database.php       # Database connection
-│-- DLMS.css           # Stylesheet
-│-- DLMS.sql       # SQL script for database setup
-└── README.md          # Project documentation
+│-- index.php              # Home page
+│-- login.php              # User authentication
+│-- login-librarian.php    # Librarian login functionality
+│-- logout.php             # Logout functionality
+│-- register.php           # User registration
+│-- search.php             # Search for books
+│-- borrow.php             # Borrow books
+│-- return.php             # Return borrowed books
+│-- dashboard.php          # User dashboard
+│-- librarians-page.php     # Librarian dashboard
+│-- database.php           # Database connection
+│-- DLMS.css               # Stylesheet
+│-- DLMS.sql               # SQL script for database setup
+└── README.md              # Project documentation
 ```
 
 ## Database Schema
