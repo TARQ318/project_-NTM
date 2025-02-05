@@ -18,7 +18,7 @@ The Digital Library Management System (DLMS) is a web-based application that all
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/DLMS.git
+   git clone https://github.com/TARQ318/project_-NTM.git
    ```
 2. Import the database:
    - Navigate to your MySQL interface (e.g., phpMyAdmin)
